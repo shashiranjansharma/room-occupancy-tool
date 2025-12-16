@@ -26,18 +26,24 @@ export function allocateRooms(
     let premiumRevenue = usedPremiumGuests.reduce((s, v) => s + v, 0);
 
     // Fill economy rooms with available guests
-    const usedEconomyGuests = economyGuests.slice(0, freeEconomy);
-    let economyRoomUsed = usedEconomyGuests.length;
-    let economyRevenue = usedEconomyGuests.reduce((s, v) => s + v, 0);
+    let usedEconomyGuests: number[] = [];
+    let economyRoomUsed = 0;
+    let economyRevenue = 0;
 
     // Upgrade economy guests if premium rooms are available
     const remainingPremiumRooms = freePremium - premiumRoomUsed;
     if (remainingPremiumRooms > 0) {
         const upgradeGuests = economyGuests
-            .slice(freeEconomy, freeEconomy + remainingPremiumRooms);
-
+            .slice(0, remainingPremiumRooms);
         premiumRoomUsed += upgradeGuests.length;
         premiumRevenue += upgradeGuests.reduce((s, v) => s + v, 0);
+        usedEconomyGuests = economyGuests.filter(g => !upgradeGuests.includes(g)).splice(0, freeEconomy);
+        economyRoomUsed = usedEconomyGuests.length;
+        economyRevenue = usedEconomyGuests.reduce((s, v) => s + v, 0);
+    } else {
+        usedEconomyGuests = economyGuests.splice(0, freeEconomy);
+        economyRoomUsed = usedEconomyGuests.length;
+        economyRevenue = usedEconomyGuests.reduce((s, v) => s + v, 0);
     }
 
     return {
