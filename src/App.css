@@ -1,0 +1,103 @@
+.flex {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.d-block {
+  display: block;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.cursor-help {
+  cursor: help;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  color: #000;
+}
+
+.input {
+  width: 80%;
+  margin-bottom: 3rem;
+  position: relative;
+
+}
+
+.input input {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 0.1rem solid #0c0c65;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: transparent;
+}
+
+.card {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 600;
+  background: -webkit-linear-gradient(rgba(2, 0, 36, 1), rgba(0, 212, 255, 1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.premium-used {
+  background: #d97fe3;
+  background: linear-gradient(90deg, rgba(217, 127, 227, 1) 0%, rgba(237, 164, 164, 1) 100%, rgba(212, 160, 152, 1) 100%);
+  color: #4A1070
+}
+
+.economy-used {
+  background: #9b9bcf;
+  background: linear-gradient(90deg, rgba(155, 155, 207, 1) 0%, rgba(80, 80, 191, 1) 100%, rgba(0, 212, 255, 1) 100%);
+  color: #0c0c65;
+}
+
+.total-revenue {
+  color: #FFFFFF;
+  background: #020024;
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+}
+
+
+.error-message {
+  color: #800000;
+  font-size: 0.8rem;
+  font-style: italic;
+  position: absolute;
+  bottom: -1.2rem;
+  left: 0;
+}
