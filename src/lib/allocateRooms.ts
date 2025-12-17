@@ -1,54 +1,48 @@
-export type AllocationResult = {
-    premiumRoomUsed: number;
-    economyRoomUsed: number;
-    premiumRevenue: number;
-    economyRevenue: number;
-};
-
-const PREMIUM_THRESHOLD = 100;
+function getSumOfNums(arr: number[]) {
+    return arr.reduce((sum, curr) => sum + curr, 0);
+}
 
 export function allocateRooms(
     freePremium: number,
     freeEconomy: number,
     guests: number[]
-): AllocationResult {
+) {
     const premiumGuests = guests
-        .filter(g => g >= PREMIUM_THRESHOLD)
+        .filter(g => g >= 100)
         .sort((a, b) => b - a);
 
     const economyGuests = guests
-        .filter(g => g < PREMIUM_THRESHOLD)
+        .filter(g => g < 100)
         .sort((a, b) => b - a);
 
-    // Fill premium rooms with premium guests
-    const usedPremiumGuests = premiumGuests.slice(0, freePremium);
-    let premiumRoomUsed = usedPremiumGuests.length;
-    let premiumRevenue = usedPremiumGuests.reduce((s, v) => s + v, 0);
+    // Fill premium with premium guests
+    const premiumFromPremium = premiumGuests.slice(0, freePremium);
+    let premiumRoomsUsed = premiumFromPremium.length;
+    let premiumRevenue = getSumOfNums(premiumFromPremium);
 
-    // Fill economy rooms with available guests
-    let usedEconomyGuests: number[] = [];
-    let economyRoomUsed = 0;
-    let economyRevenue = 0;
+    // Remaining premium capacity
+    let remainingPremium = freePremium - premiumRoomsUsed;
 
-    // Upgrade economy guests if premium rooms are available
-    const remainingPremiumRooms = freePremium - premiumRoomUsed;
-    if (remainingPremiumRooms > 0) {
-        const upgradeGuests = economyGuests
-            .slice(0, remainingPremiumRooms);
-        premiumRoomUsed += upgradeGuests.length;
-        premiumRevenue += upgradeGuests.reduce((s, v) => s + v, 0);
-        usedEconomyGuests = economyGuests.filter(g => !upgradeGuests.includes(g)).splice(0, freeEconomy);
-        economyRoomUsed = usedEconomyGuests.length;
-        economyRevenue = usedEconomyGuests.reduce((s, v) => s + v, 0);
-    } else {
-        usedEconomyGuests = economyGuests.splice(0, freeEconomy);
-        economyRoomUsed = usedEconomyGuests.length;
-        economyRevenue = usedEconomyGuests.reduce((s, v) => s + v, 0);
-    }
+    // Decide how many economy guests to upgrade
+    const maxUpgradeable = Math.min(
+        remainingPremium,
+        Math.max(0, economyGuests.length - freeEconomy)
+    );
+
+    const upgradedGuests = economyGuests.slice(0, maxUpgradeable);
+    premiumRoomsUsed = premiumRoomsUsed + upgradedGuests.length;
+    premiumRevenue = premiumRevenue + getSumOfNums(upgradedGuests);
+
+    // Remaining economy guests go to economy rooms
+    const remainingEconomyGuests = economyGuests.slice(maxUpgradeable);
+    const economyAssigned = remainingEconomyGuests.slice(0, freeEconomy);
+
+    const economyRoomsUsed = economyAssigned.length;
+    const economyRevenue = getSumOfNums(economyAssigned);
 
     return {
-        premiumRoomUsed,
-        economyRoomUsed,
+        premiumRoomsUsed,
+        economyRoomsUsed,
         premiumRevenue,
         economyRevenue
     };

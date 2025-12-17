@@ -13,8 +13,8 @@ export default function App() {
     () => {
       if (Number.isNaN(Number(premiumRooms)) || Number.isNaN(Number(economyRooms)) || Number(premiumRooms) < 0 || Number(economyRooms) < 0) {
         return {
-          premiumRoomUsed: 0,
-          economyRoomUsed: 0,
+          premiumRoomsUsed: 0,
+          economyRoomsUsed: 0,
           premiumRevenue: 0,
           economyRevenue: 0
         };

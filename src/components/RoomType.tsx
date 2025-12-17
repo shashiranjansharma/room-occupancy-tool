@@ -24,7 +24,7 @@ export default function RoomType({ availableRooms, setAvailableRooms, roomType, 
                 )}
             </div>
             <p>
-                Rooms Used: {result[`${roomType}RoomUsed`]} — &nbsp;
+                Rooms Used: {result[`${roomType}RoomsUsed`]} — &nbsp;
                 <span
                     data-testid={`${roomType}-rooms-total-revenue`}
                     data-value={result[`${roomType}Revenue`]}
